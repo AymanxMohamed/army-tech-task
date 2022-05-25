@@ -13,12 +13,16 @@ namespace ArmyTechTask.Models
         [Key]
         [Column("ID")]
         public long Id { get; set; }
+
         [Column("InvoiceHeaderID")]
         public long InvoiceHeaderId { get; set; }
+
         [Required]
         [StringLength(200)]
         public string ItemName { get; set; }
+
         public double ItemCount { get; set; }
+
         public double ItemPrice { get; set; }
 
         [ForeignKey(nameof(InvoiceHeaderId))]

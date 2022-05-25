@@ -10,26 +10,24 @@ namespace ArmyTechTask.Models
 {
     public partial class Branches
     {
-        public Branches()
-        {
-            Cashier = new HashSet<Cashier>();
-            InvoiceHeader = new HashSet<InvoiceHeader>();
-        }
-
         [Key]
         [Column("ID")]
         public int Id { get; set; }
+
         [Required]
         [StringLength(200)]
         public string BranchName { get; set; }
+
         [Column("CityID")]
         public int CityId { get; set; }
 
         [ForeignKey(nameof(CityId))]
         [InverseProperty(nameof(Cities.Branches))]
         public virtual Cities City { get; set; }
+
         [InverseProperty("Branch")]
         public virtual ICollection<Cashier> Cashier { get; set; }
+
         [InverseProperty("Branch")]
         public virtual ICollection<InvoiceHeader> InvoiceHeader { get; set; }
     }

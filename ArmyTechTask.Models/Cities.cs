@@ -10,14 +10,10 @@ namespace ArmyTechTask.Models
 {
     public partial class Cities
     {
-        public Cities()
-        {
-            Branches = new HashSet<Branches>();
-        }
-
         [Key]
         [Column("ID")]
         public int Id { get; set; }
+
         [Required]
         [StringLength(200)]
         public string CityName { get; set; }

@@ -10,30 +10,31 @@ namespace ArmyTechTask.Models
 {
     public partial class InvoiceHeader
     {
-        public InvoiceHeader()
-        {
-            InvoiceDetails = new HashSet<InvoiceDetails>();
-        }
-
         [Key]
         [Column("ID")]
         public long Id { get; set; }
+
         [Required]
         [StringLength(200)]
         public string CustomerName { get; set; }
+
         [Column(TypeName = "datetime")]
         public DateTime Invoicedate { get; set; }
+
         [Column("CashierID")]
         public int? CashierId { get; set; }
+
         [Column("BranchID")]
         public int BranchId { get; set; }
 
         [ForeignKey(nameof(BranchId))]
-        [InverseProperty(nameof(Branches.InvoiceHeader))]
+        [InverseProperty(nameof(Models.Branches.InvoiceHeader))]
         public virtual Branches Branch { get; set; }
+
         [ForeignKey(nameof(CashierId))]
         [InverseProperty("InvoiceHeader")]
         public virtual Cashier Cashier { get; set; }
+
         [InverseProperty("InvoiceHeader")]
         public virtual ICollection<InvoiceDetails> InvoiceDetails { get; set; }
     }
