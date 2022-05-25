@@ -2,8 +2,8 @@
 #nullable disable
 using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using ArmyTechTask.Models;
+using ArmyTechTask.DataAccess.FluentApiConfig;
 
 #nullable disable
 
@@ -30,61 +30,12 @@ namespace ArmyTechTask.DataAccess
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<Branches>(entity =>
-            {
-                entity.Property(e => e.BranchName).HasDefaultValueSql("('')");
-
-                entity.HasOne(d => d.City)
-                    .WithMany(p => p.Branches)
-                    .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Branches_Cities");
-            });
-
-            modelBuilder.Entity<Cashier>(entity =>
-            {
-                entity.Property(e => e.CashierName).HasDefaultValueSql("('')");
-
-                entity.HasOne(d => d.Branch)
-                    .WithMany(p => p.Cashier)
-                    .HasForeignKey(d => d.BranchId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Cashier_Branches");
-            });
-
-            modelBuilder.Entity<Cities>(entity =>
-            {
-                entity.Property(e => e.CityName).HasDefaultValueSql("('')");
-            });
-
-            modelBuilder.Entity<InvoiceDetails>(entity =>
-            {
-                entity.Property(e => e.ItemName).HasDefaultValueSql("('')");
-
-                entity.HasOne(d => d.InvoiceHeader)
-                    .WithMany(p => p.InvoiceDetails)
-                    .HasForeignKey(d => d.InvoiceHeaderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_InvoiceDetails_InvoiceHeader");
-            });
-
-            modelBuilder.Entity<InvoiceHeader>(entity =>
-            {
-                entity.Property(e => e.CustomerName).HasDefaultValueSql("('')");
-
-                entity.Property(e => e.Invoicedate).HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.Branch)
-                    .WithMany(p => p.InvoiceHeader)
-                    .HasForeignKey(d => d.BranchId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_InvoiceHeader_Branches");
-
-                entity.HasOne(d => d.Cashier)
-                    .WithMany(p => p.InvoiceHeader)
-                    .HasForeignKey(d => d.CashierId)
-                    .HasConstraintName("FK_InvoiceHeader_Cashier");
-            });
+            // FluentApiConfigurations
+            modelBuilder.ApplyConfiguration(new BranchesConfig());
+            modelBuilder.ApplyConfiguration(new CashierConfig());
+            modelBuilder.ApplyConfiguration(new CitiesConfig());
+            modelBuilder.ApplyConfiguration(new InvoiceDetailsConfig());
+            modelBuilder.ApplyConfiguration(new InvoiceHeaderConfig());
 
             OnModelCreatingPartial(modelBuilder);
         }
