@@ -20,6 +20,10 @@ namespace ArmyTechTask.Areas.Customer.Controllers
             await _unitOfWork.CashaiersRepository.GetAll(include: q => q.Include(x => x.Branch))
             );
 
+        public async Task<IActionResult> IndexAjax() => View(
+            await _unitOfWork.CashaiersRepository.GetAll(include: q => q.Include(x => x.Branch))
+            );
+
         public async Task<IActionResult> Create()
         {
             IEnumerable<Branches> branches = await _unitOfWork.BranchesRepository.GetAll();
@@ -100,11 +104,44 @@ namespace ArmyTechTask.Areas.Customer.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
         private async Task<IActionResult> Submit(string successMessage)
         {
             await _unitOfWork.Save();
             TempData["Success"] = successMessage;
             return RedirectToAction("Index");
         }
+
+
+        #region "Ajax Functions"
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteCashier(int? id)
+        {
+            if (id == null)
+                return NotFound();
+            return PartialView("_DeleteCashier",await _unitOfWork.CashaiersRepository.Get(x => x.Id == id, include: q => q.Include(x => x.Branch)));
+
+        }
+
+        public async Task<IActionResult> DeleteNew(int id)
+        {
+            await _unitOfWork.CashaiersRepository.Delete(id);
+            try
+            {
+                await _unitOfWork.Save();
+                TempData["Success"] = "Cashier deleted Successfully";
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Cann't Delete This Cashier Because he has Dependencies";
+            }
+            return Ok();
+        }
+
+        #endregion
     }
 }

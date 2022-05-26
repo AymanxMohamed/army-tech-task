@@ -23,8 +23,17 @@
 	</div>
 </form>
 
-@section Scripts{
-	@{
-		<partial name="_ValidationScriptsPartial" />
-	}
-}
+
+<script>
+	$(document).ready(function() {
+        $(this).scrollTop(0);
+        rebindValidators();
+    });
+    function rebindValidators() {
+        var $form = ($"#EditForm");
+        $form.unbind();
+        $form.data("validator", null);
+        $.validator.unobtrusive.parse($form);
+        $form.validate($form.data("unobtrusiveValidation").options);
+    }
+</script>

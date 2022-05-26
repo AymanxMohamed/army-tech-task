@@ -1,0 +1,105 @@
+﻿@model IEnumerable<InvoiceHeader>
+@{
+    ViewData["Title"] = "Invoice Page";
+}
+
+
+<div class="container invisible" style="top:10%; height:90%; position:absolute;" id="ModalContainer">
+    // PArtial view
+</div>
+
+<main class="container p-3 visible" id="ListView">
+    <div class="row pt-4">
+        <div class="col-8">
+            <h2 class="text-primary">Invoice List</h2>
+		</div>
+        <div class="col-2 text-end">
+            <form asp-action="CreateInvoiceHeader" asp-controller="Invoice" data-ajax="true" data-ajax-update="#ListView" data-ajax-success="showModal()">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> &nbsp; Add Invoice Header
+			    </button>
+            </form>
+        </div>
+        <div class="col-2 text-end">
+            <form asp-action="CreateInvoiceDetail" 
+            asp-controller="Invoice" data-ajax="true" data-ajax-update="#ModalContainer" data-ajax-success="showModal()">
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-plus-circle"></i> &nbsp; Add Invoice Detail
+			    </button>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="text-center">
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Invoice Id
+			        </th>
+                    <th>
+                        Customer Name
+			        </th>
+                    <th>
+                        Invoice Date
+			        </th>
+                    <th>
+                        Cashier Name
+			        </th>
+                    <th>
+                        Branch Name
+			        </th>
+                    <th>
+                        Invoice Items
+                    </th>
+                     <th>
+                        Items Count
+                    </th>
+                     <th>
+                        Items TotalPrice
+                    </th>
+                    <th>
+                        Invoice TotalPrice
+                    </th>
+                    <th>Actions</th>
+		        </tr>
+	        </thead>
+            <tbody>
+                @foreach(var invoice in Model)
+                {
+                    <tr id="TR_@invoice.Id" class="align-items-center">
+                        <partial name="_Invoice" model="@invoice" />
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+
+        function deleteItem(form) {
+            var element = $(form);
+            element.closest("tr").remove();
+        }
+
+        function showModal() {
+            $("#ModalContainer").addClass("visible");
+            $("#ModalContainer").removeClass("invisible");
+
+            $("#ListView").addClass("invisible");
+            $("#ListView").removeClass("visible");
+            return;
+        }
+        function closeModal() {
+            $("#ModalContainer").addClass("invisible");
+            $("#ModalContainer").removeClass("visible");
+
+            $("#ListView").addClass("visible");
+            $("#ListView").removeClass("invisible");
+            return;
+        }
+    </script>
+}

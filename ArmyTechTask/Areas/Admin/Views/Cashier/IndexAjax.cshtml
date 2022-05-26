@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Cashier>
+@{
+    ViewData["Title"] = "Cashier Page";
+}
+
+
+<div class="container invisible" style="top:10%; height:90%; position:absolute;" id="ModalContainer">
+</div>
+
+<main class="container p-3 visible" id="ListView">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Cashier List Ajax</h2>
+		</div>
+        <div class="col-6 text-end">
+            <a asp-controller="Cashier" asp-action="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> &nbsp; Add New Cashier
+			</a>
+        </div>
+    </div>
+    <br/>
+    <div class="text-center">
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        cashier Id
+			        </th>
+                    <th>
+                        cashier Name
+			        </th>
+                    <th>
+                        Branch Name
+			        </th>
+                    <th>Actions</th>
+		        </tr>
+	        </thead>
+            <tbody>
+                @foreach(var cashier in Model)
+                {
+                    <tr id="TR_@cashier.Id">
+                        <partial name="_Cashier" model="@cashier" />
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script>
+
+        function deleteItem(form) {
+            var element = $(form);
+            element.closest("tr").remove();
+        }
+
+        function showModal() {
+            $("#ModalContainer").addClass("visible");
+            $("#ModalContainer").removeClass("invisible");
+            $("#ListView").addClass("invisible");
+            $("#ListView").removeClass("visible");
+            return;
+        }
+        function closeModal() {
+            $("#ModalContainer").addClass("invisible");
+            $("#ModalContainer").removeClass("visible");
+
+            $("#ListView").addClass("visible");
+            $("#ListView").removeClass("invisible");
+            return;
+        }
+    </script>
+}
