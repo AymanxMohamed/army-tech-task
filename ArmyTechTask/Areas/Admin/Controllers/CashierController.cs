@@ -22,9 +22,9 @@ namespace ArmyTechTask.Areas.Customer.Controllers
 
         public async Task<IActionResult> Create()
         {
-            IEnumerable<Branches> cities = await _unitOfWork.BranchesRepository.GetAll();
+            IEnumerable<Branches> branches = await _unitOfWork.BranchesRepository.GetAll();
      
-            var branchesList = cities.Select(i => new SelectListItem
+            var branchesList = branches.Select(i => new SelectListItem
             {
                 Text = i.BranchName,
                 Value = i.Id.ToString()
@@ -40,7 +40,6 @@ namespace ArmyTechTask.Areas.Customer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Cashier cashier)
         {
-
             if (!ModelState.IsValid)
                 return View(cashier);
             await _unitOfWork.CashaiersRepository.Insert(cashier);
@@ -51,7 +50,21 @@ namespace ArmyTechTask.Areas.Customer.Controllers
         {
             if (id == null)
                 return NotFound();
-            return View(await _unitOfWork.CashaiersRepository.Get(x => x.Id == id));
+
+            IEnumerable<Branches> branches = await _unitOfWork.BranchesRepository.GetAll();
+
+            var branchesList = branches.Select(i => new SelectListItem
+            {
+                Text = i.BranchName,
+                Value = i.Id.ToString()
+            });
+            CashierViewModel cashierVm = new()
+            {
+                Cashier = await _unitOfWork.CashaiersRepository.Get(x => x.Id == id),
+                BranchesList = branchesList
+            };
+            return View(cashierVm);
+
         }
 
         [HttpPost]

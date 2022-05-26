@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ArmyTechTask.Models.ViewModels
 {
-    public class CashierViewModel
+    public class BranchesViewModel
     {
-        public Cashier Cashier { get; set; }
-        public IEnumerable<SelectListItem> BranchesList { get; set; }
+        public Branches Branches { get; set; }
+        public IEnumerable<SelectListItem> CitiesList { get; set; }
     }
 }
