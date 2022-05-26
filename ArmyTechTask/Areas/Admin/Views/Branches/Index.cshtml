@@ -5,9 +5,14 @@
 
 <main class="container p-3">
     <div class="row pt-4">
-        <div class="col-12">
+        <div class="col-6">
             <h2 class="text-primary">Branches List</h2>
 		</div>
+                <div class="col-6 text-end">
+            <a asp-controller="Branches" asp-action="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> &nbsp; Add New Branch
+			</a>
+        </div>
     </div>
     <br/>
     <div class="text-center">
@@ -23,6 +28,9 @@
                 <th>
                     City Name
 			    </th>
+                <th>
+                    Actions
+                </th>
 		    </tr>
 	    </thead>
         <tbody>
@@ -32,11 +40,19 @@
                     <td width="10%">
                         @branch.Id
 				    </td>
-                    <td width="45%">
+                    <td width="35%">
                         @branch.BranchName
 				    </td>
-                     <td width="45%">
+                     <td width="35%">
                         @branch.City.CityName
+				    </td>
+                    <td width="20%">
+                        <div class="w-75 btn-group" role="group">
+                            <a onclick="ontoggle" asp-controller="Branches" asp-action="Edit" asp-route-id="@branch.Id"
+                            class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                            <a asp-controller="Branches" asp-action="Delete" asp-route-id="@branch.Id"
+                            class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
+					    </div>
 				    </td>
 			    </tr>
             }
@@ -44,3 +60,10 @@
     </table>
     </div>
 </main>
+
+@section scripts
+{
+    <script type="text/javascript">
+        ontoggle()
+    </script>
+}

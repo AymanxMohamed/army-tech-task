@@ -1,10 +1,10 @@
-﻿@model Cashier
+﻿@model Branches
 
 <form method="post" asp-action="Delete">
 	<input asp-for="Id" hidden />
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Are you Sure To Delete This Cashier?</h2>
+			<h2 class="text-primary">Are you Sure To Delete This Branch?</h2>
 			<hr />
 		</div>
 		<div class="mb-3">
@@ -12,16 +12,16 @@
 			<input asp-for="Id" disabled class="form-control" />
 		</div>
 		<div class="mb-3">
-			<label asp-for="CashierName"></label>
-			<input asp-for="CashierName" disabled class="form-control" />
+			<label asp-for="BranchName"></label>
+			<input asp-for="BranchName" disabled class="form-control" />
 		</div>
 		<div class="mb-3">
-			<label asp-for="Branch.BranchName"></label>
-			<input asp-for="Branch.BranchName" disabled class="form-control" />
+			<label asp-for="City.CityName"></label>
+			<input asp-for="City.CityName" disabled class="form-control" />
 		</div>
 
 		<button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
-		<a asp-controller="Cashier" asp-action="Index" class="btn btn-secondary" style="width:150px">
+		<a asp-controller="Branches" asp-action="Index" class="btn btn-secondary" style="width:150px">
 			Back to List
 		</a>
 	</div>

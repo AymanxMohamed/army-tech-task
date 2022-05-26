@@ -1,26 +1,26 @@
-﻿@model CashierViewModel
+﻿@model BranchesViewModel
 
 <form method="post">
-	<input asp-for="Cashier.Id" hidden />
+	<input asp-for="Branches.Id" hidden />
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Edit Cashier</h2>
+			<h2 class="text-primary">Edit Branch</h2>
 			<hr />
 		</div>
 		<div class="mb-3">
-			<label asp-for="Cashier.CashierName"></label>
-			<input asp-for="Cashier.CashierName" class="form-control" />
-			<span asp-validation-for="Cashier.CashierName" class="text-danger"></span>
+			<label asp-for="Branches.BranchName"></label>
+			<input asp-for="Branches.BranchName" class="form-control" />
+			<span asp-validation-for="Branches.BranchName" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
-			<label asp-for="Cashier.BranchId"></label>
-			<select asp-for="Cashier.BranchId" asp-items="@Model.BranchesList" class="form-select">
+			<label asp-for="Branches.CityId"></label>
+			<select asp-for="Branches.CityId" asp-items="@Model.CitiesList" class="form-select">
 				<option disabled selected>--Select Branch--</option>
 			</select>
-			<span asp-validation-for="Cashier.BranchId" class="text-danger"></span>
+			<span asp-validation-for="Branches.CityId" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
-		<a asp-controller="Cashier" asp-action="Index" class="btn btn-secondary" style="width:150px">
+		<a asp-controller="Branches" asp-action="Index" class="btn btn-secondary" style="width:150px">
 			Back to List
 		</a>
 	</div>
