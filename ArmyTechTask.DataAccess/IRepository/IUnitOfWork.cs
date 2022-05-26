@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ArmyTechTask.DataAccess.IRepository
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
         IGenericRepository<Branches> BranchesRepository { get; }
         IGenericRepository<Cashier> CashaiersRepository { get; }
