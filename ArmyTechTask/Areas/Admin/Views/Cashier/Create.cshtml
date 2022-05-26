@@ -1,0 +1,32 @@
+﻿@model CashierViewModel
+
+<form method="post">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Create City</h2>
+			<hr />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Cashier.CashierName"></label>
+			<input asp-for="Cashier.CashierName" class="form-control" />
+			<span asp-validation-for="Cashier.CashierName" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Cashier.BranchId"></label>
+			<select asp-for="Cashier.BranchId" asp-items="@Model.BranchesList" class="form-select">
+				<option disabled selected>--Select Branch--</option>
+			</select>
+			<span asp-validation-for="Cashier.Id" class="text-danger"></span>
+		</div>
+		<button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+		<a asp-controller="Cashier" asp-action="Index" class="btn btn-secondary" style="width:150px">
+			Back to List
+		</a>
+	</div>
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

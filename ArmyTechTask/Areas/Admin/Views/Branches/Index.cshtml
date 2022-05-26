@@ -1,12 +1,46 @@
-﻿@model IEnumerable<Cities>
+﻿@model IEnumerable<Branches>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Branches Page";
 }
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    @foreach (var city in Model)
-    {
-        <p>@city.CityName</p>
-    }
-</div>
+
+<main class="container p-3">
+    <div class="row pt-4">
+        <div class="col-12">
+            <h2 class="text-primary">Branches List</h2>
+		</div>
+    </div>
+    <br/>
+    <div class="text-center">
+        <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Branch Id
+			    </th>
+                <th>
+                    Branch Name
+			    </th>
+                <th>
+                    City Name
+			    </th>
+		    </tr>
+	    </thead>
+        <tbody>
+            @foreach(var branch in Model)
+            {
+                <tr>
+                    <td width="10%">
+                        @branch.Id
+				    </td>
+                    <td width="45%">
+                        @branch.BranchName
+				    </td>
+                     <td width="45%">
+                        @branch.City.CityName
+				    </td>
+			    </tr>
+            }
+        </tbody>
+    </table>
+    </div>
+</main>
