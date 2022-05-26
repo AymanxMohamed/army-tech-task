@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace ArmyTechTask.DataAccess.IRepository
 {
-    public interface IRepository<T> where T : class 
+    public interface IGenericRepository<T> where T : class 
     {
-        Task<T> GetALl(
+        Task<IList<T>> GetALl(
             Expression<Func<T, bool>> expression = null,
-            List<string> includes = null
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
         );
+        Task<T> Get(
+            Expression<Func<T, bool>> expression = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
+        );
+        Task Insert(T entity);
+        Task InsertRange(IEnumerable<T> entities);
+        Task Delete(int id);
+        void DeleteRange(IEnumerable<T> entities);
+        void Update(T entity);
     }
 }
