@@ -27,7 +27,7 @@ namespace ArmyTechTask
         {
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("Default Connection"))
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
         }
 
