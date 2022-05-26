@@ -10,7 +10,7 @@ namespace ArmyTechTask.DataAccess.IRepository
 {
     public interface IGenericRepository<T> where T : class 
     {
-        Task<IList<T>> GetALl(
+        Task<IList<T>> GetAll(
             Expression<Func<T, bool>> expression = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
         );
