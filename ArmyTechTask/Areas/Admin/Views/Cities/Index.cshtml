@@ -1,12 +1,41 @@
 ﻿@model IEnumerable<Cities>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Cities Page";
 }
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    @foreach (var city in Model)
-    {
-        <p>@city.CityName</p>
-    }
+    <h1 class="display-4">Cities</h1>
+    <table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                City Id
+			</th>
+            <th>
+                City Name
+			</th>
+            <th>Actions</th>
+		</tr>
+	</thead>
+    <tbody>
+        @foreach(var city in Model)
+        {
+            <tr>
+                <td width="10%">
+                    @city.Id
+				</td>
+                <td width="70%">
+                    @city.CityName
+				</td>
+                <td width="20%">
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@city.Id"
+                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@city.Id"
+                        class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
+					</div>
+				</td>
+			</tr>
+        }
+    </tbody>
+</table>
 </div>
