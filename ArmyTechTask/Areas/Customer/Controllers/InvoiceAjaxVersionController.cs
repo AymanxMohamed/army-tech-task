@@ -10,20 +10,18 @@ using System.Threading.Tasks;
 
 namespace ArmyTechTask.Areas.Customer.Controllers
 {
-    public class InvoiceController : Controller
+    public class InvoiceAjaxVersionController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public InvoiceController(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
+        public InvoiceAjaxVersionController(IUnitOfWork unitOfWork) => _unitOfWork = unitOfWork;
 
-        public async Task<IActionResult>Index()
-        {
-           return View(
-            await _unitOfWork.InvoiceHeaderRepository.GetAll(include: q => 
+        public async Task<IActionResult>Index() => View(
+            await _unitOfWork.InvoiceHeaderRepository.GetAll(include: q =>
             q.Include(x => x.Cashier)
             .Include(x => x.Branch)
             .Include(x => x.InvoiceDetails)
             ));
-        }
+     
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -56,7 +54,7 @@ namespace ArmyTechTask.Areas.Customer.Controllers
             await _unitOfWork.InvoiceDetailsRepository.Insert(invoiceHeaderVM.InvoiceDetails);
             await _unitOfWork.Save();
 
-            return RedirectToAction("Index");
+            return PartialView();
         }
         
     }

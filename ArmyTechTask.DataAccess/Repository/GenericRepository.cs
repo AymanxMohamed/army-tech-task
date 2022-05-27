@@ -23,6 +23,8 @@ namespace ArmyTechTask.DataAccess.Repository
 
         public async Task Delete(int id) => _dbSet.Remove(await _dbSet.FindAsync(id));
 
+        public async Task Delete(long id) => _dbSet.Remove(await _dbSet.FindAsync(id));
+
         public void DeleteRange(IEnumerable<T> entities) => _dbSet.RemoveRange(entities);
 
 
@@ -55,6 +57,11 @@ namespace ArmyTechTask.DataAccess.Repository
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+        }
+        public void UpdateRange(IEnumerable<T> entities)
+        {
+            _dbSet.AttachRange(entities);
+            _context.Entry(entities).State = EntityState.Modified;
         }
     }
 }

@@ -5,7 +5,6 @@
 
 
 <div class="container invisible" style="top:10%; height:90%; position:absolute;" id="ModalContainer">
-    // PArtial view
 </div>
 
 <main class="container p-3 visible" id="ListView">
@@ -14,7 +13,7 @@
             <h2 class="text-primary">Invoice List</h2>
 		</div>
         <div class="col-2 text-end">
-            <form asp-action="CreateInvoiceHeader" asp-controller="Invoice" data-ajax="true" data-ajax-update="#ListView" data-ajax-success="showModal()">
+            <form asp-action="CreateInvoiceHeader" asp-controller="Invoice" data-ajax="true" data-ajax-update="#ModalContainer" data-ajax-success="showModal()">
                 <button type="submit" class="btn btn-success">
                     <i class="bi bi-plus-circle"></i> &nbsp; Add Invoice Header
 			    </button>

@@ -21,7 +21,9 @@ namespace ArmyTechTask.DataAccess.IRepository
         Task Insert(T entity);
         Task InsertRange(IEnumerable<T> entities);
         Task Delete(int id);
+        Task Delete(long id);
         void DeleteRange(IEnumerable<T> entities);
         void Update(T entity);
+        void UpdateRange(IEnumerable<T> entities);
     }
 }
