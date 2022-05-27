@@ -39,6 +39,18 @@ namespace ArmyTechTask.Areas.Customer.Controllers
             return View(invoiceHeaderVM);
         }
 
+        public IActionResult AddInvoiceDetail(long id) => View(new InvoiceDetails { InvoiceHeaderId = id });
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddInvoiceDetail(InvoiceDetails item)
+        {
+            item.Id = 0;
+            await _unitOfWork.InvoiceDetailsRepository.Insert(item);
+            await _unitOfWork.Save();
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InvoiceHeaderViewModel invoiceHeaderVM)
@@ -113,12 +125,15 @@ namespace ArmyTechTask.Areas.Customer.Controllers
             .Include(x => x.InvoiceDetails)
             ));
         }
-        public async Task<IActionResult> DeleteItem(int id)
+        public async Task<IActionResult> DeleteItem(long id)
         {
             var item = await _unitOfWork.InvoiceDetailsRepository.Get(x => x.Id == id);
             await _unitOfWork.InvoiceDetailsRepository.Delete(id);
-            return RedirectToAction("Edit", item.InvoiceHeaderId);
+            await _unitOfWork.Save();
+            return RedirectToAction("Index");
         }
+
+        
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

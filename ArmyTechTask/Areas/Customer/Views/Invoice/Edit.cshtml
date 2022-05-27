@@ -4,7 +4,7 @@
 	<input asp-for="InvoiceHeader.Id" hidden />
 	<div class="border p-3 mt-4">
 		<div class="row pb-2">
-			<h2 class="text-primary">Are you Sure To Delete This Invoice?</h2>
+			<h2 class="text-primary">Edit Invoice</h2>
 			<hr />
 		</div>
 		<div class="mb-3">
@@ -43,6 +43,13 @@
 		</div>
 
 		<button type="submit" class="btn btn-success" style="width:150px">Update</button>
+		<a asp-controller="Invoice" 
+			asp-action="AddInvoiceDetail" 
+			asp-route-id="@Model.InvoiceHeader.Id" 
+			class="btn btn-info" 
+			style="width:150px">
+			Add Item
+		</a>
 		<a asp-controller="Invoice" asp-action="Index" class="btn btn-secondary" style="width:150px">
 			Back to List
 		</a>
